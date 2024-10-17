@@ -1,0 +1,105 @@
+<template>
+    <lightning-card title="Upcoming & Overdue Tasks">
+        <template if:true={tasks}>
+            <ul class="slds-list_vertical slds-m-around_medium">
+                <template for:each={tasks} for:item="task">
+                    <li key={task.Id} class="slds-m-bottom_medium slds-p-around_small slds-border_bottom" data-record-id={task.Id}>
+                        <lightning-layout>
+                            <lightning-layout-item flexibility="auto" class="slds-text-align_center">
+                                <lightning-icon icon-name='utility:chevronright'
+                                    class="chevron_btn"
+                                    style="cursor:pointer"
+                                    alternative-text="Toggle Description"
+                                    onclick={toggleDescription}
+                                    data-record-id={task.Id}
+                                    variant="border-filled"
+                                    size="small"></lightning-icon>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item flexibility="auto" class="slds-text-align_center slds-m-right_xx-small">
+                                <lightning-icon icon-name="standard:task" alternative-text="Task" size="small"></lightning-icon>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item flexibility="auto" class="slds-text-align_center">
+                                <input type="checkbox" data-record-id={task.Id} onchange={handleCheckboxChange}/>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto">
+                                <a href="#" class="slds-text-heading_small" data-record-id={task.Id} onclick={navigateToRecord}>{task.Subject}</a>
+                                <p class="slds-text-body_small">You have an upcoming task</p>
+                                <template if:true={task.expanded}>
+                                    <p class="slds-m-top_x-small">Description</p>
+                                    <p class="slds-text-body_small slds-m-top_x-small">{task.Description}</p>
+                                </template>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto" class="slds-text-align_center">
+                                <p class="slds-text-body_small" style="color: #e74c3c; font-weight:bold; font-size:0.9rem;">{task.ActivityDate}</p>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto" class="slds-text-align_center">
+                                <lightning-button-menu alternative-text="Show More" icon-name="utility:down" menu-alignment="left" onselect={handleMenuSelect}>
+                                    <lightning-menu-item label="Edit" value="edit"></lightning-menu-item>
+                                    <lightning-menu-item label="Change Status" value="changeStatus"></lightning-menu-item>
+                                    <lightning-menu-item label="Create Follow-Up Task" value="createFollowUp"></lightning-menu-item>
+                                </lightning-button-menu>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </li>
+                </template>
+            </ul>
+        </template>
+        <template if:true={error}>
+            <p>{error}</p>
+        </template>
+    </lightning-card>
+
+    <lightning-card title="Completed Tasks">
+        <template if:true={completedTasks}>
+            <ul class="slds-list_vertical slds-m-around_medium">
+                <template for:each={completedTasks} for:item="task">
+                    <li key={task.Id} class="slds-m-bottom_medium slds-p-around_small slds-border_bottom" data-record-id={task.Id}>
+                        <lightning-layout>
+                            <lightning-layout-item flexibility="auto" class="slds-text-align_center">
+                                <lightning-icon icon-name='utility:chevronright'
+                                    class="chevron_btn"
+                                    style="cursor:pointer"
+                                    alternative-text="Toggle Description"
+                                    onclick={toggleDescription}
+                                    data-record-id={task.Id}
+                                    variant="border-filled"
+                                    size="small"></lightning-icon>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item flexibility="auto" class="slds-text-align_center slds-m-right_xx-small">
+                                <lightning-icon icon-name="standard:task" alternative-text="Task" size="small"></lightning-icon>
+                            </lightning-layout-item>
+
+                            <!--<lightning-layout-item flexibility="auto" class="slds-text-align_center slds-p-around_small">
+                                <input type="checkbox" data-record-id={task.Id} checked onchange={handleCheckboxChange}/>
+                            </lightning-layout-item>-->
+                            <lightning-layout-item flexibility="auto">
+                                <a href="#" class="slds-text-heading_small" data-record-id={task.Id} onclick={navigateToRecord}>{task.Subject}</a>
+                                <p class="slds-text-body_small">Task completed</p>
+                                <template if:true={task.expanded}>
+                                    <p class="slds-m-top_x-small">Description</p>
+                                    <p class="slds-text-body_small slds-m-top_x-small">{task.Description}</p>
+                                </template>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto" class="slds-text-align_center">
+                                <p class="slds-text-body_small">{task.ActivityDate}</p>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto" class="slds-text-align_center">
+                                <lightning-button-menu alternative-text="Show More" icon-name="utility:down" menu-alignment="left" onselect={handleMenuSelect}>
+                                    <lightning-menu-item label="Edit" value="edit"></lightning-menu-item>
+                                    <lightning-menu-item label="Change Status" value="changeStatus"></lightning-menu-item>
+                                    <lightning-menu-item label="Create Follow-Up Task" value="createFollowUp"></lightning-menu-item>
+                                </lightning-button-menu>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </li>
+                </template>
+            </ul>
+        </template>
+        <template if:true={error}>
+            <p>{error}</p>
+        </template>
+    </lightning-card>
+</template>

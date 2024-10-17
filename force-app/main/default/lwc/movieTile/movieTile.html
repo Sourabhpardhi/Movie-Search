@@ -1,0 +1,13 @@
+<template>
+    <div class={tileSelected} onclick={clickHandler}>
+        <div class="innertile">
+            <template if:true={movie}>
+                <!-- Safely display the movie title and poster -->
+                <img src={movie.Poster} alt="Movie Poster" />
+                <div class="lower-third">
+                    <h1>{movie.Title}</h1>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>
